@@ -59,7 +59,7 @@ pipeline {
             mail bcc: '',
             body: 'Pipeline build succeeded',
             cc: '',
-            from: 'jaziri.aziz@yahoo.com',
+            from: 'hadhouma2.pfe@yahoo.com',
             replyTo: '',
             subject: 'Build Finished - Success',
             to: 'jaziri.aziz@yahoo.com'
@@ -68,13 +68,13 @@ pipeline {
             mail bcc: '',
             body: 'Pipeline build failed',
             cc: '',
-            from: 'jaziri.aziz@yahoo.com', 
+            from: 'hadhouma2.pfe@yahoo.com', 
             replyTo: '',
             subject: 'Build Finished - Failure', 
             to: 'jaziri.aziz@yahoo.com'
         }
         always {
-            emailext attachLog: true, body: '', subject: 'Build finished', from: 'jaziri.aziz@yahoo.com', to: 'jaziri.aziz@yahoo.com'
+            emailext attachLog: true, body: '', subject: 'Build finished', from: 'hadhouma2.pfe@yahoo.com', to: 'jaziri.aziz@yahoo.com'
             cleanWs()
         }
     }
