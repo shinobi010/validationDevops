@@ -33,7 +33,7 @@ pipeline {
         }
         stage('DOCKER IMAGES') {
             steps {
-                sh 'docker build -t timesheetimage:v${BUILD_NUMBER} -f Dockerfile ./'
+                sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
     }
