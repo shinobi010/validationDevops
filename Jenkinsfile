@@ -42,6 +42,11 @@ pipeline {
                sh 'docker tag achatimage:v${BUILD_NUMBER} oumaimaadmin/achatimage:achatimage'
                sh 'docker push oumaimaadmin/achatimage:achatimage'
            }
-       }
+        }
+        stage ('DOCKER COMPOSE') {
+            steps {
+               sh 'docker compose up -d'
+            }
+        }
     }
 }
