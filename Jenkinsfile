@@ -48,7 +48,13 @@ pipeline {
                sh 'docker compose up -d'
             }
         }
+        stage ('GRAFANA') {
+            steps {
+               echo 'GRAFANA'
+            }
+        }
     }
+    /*
     post {
         success {
             mail bcc: '',
@@ -79,4 +85,5 @@ pipeline {
             cleanWs()
         }
     }
+    */
 }
