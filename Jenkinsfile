@@ -49,4 +49,34 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            mail bcc: '',
+            body: '''
+            'Dear Aziz ,
+            we are happy to inform you that your pipeline build was successful.
+            Great work!
+                -Jenkins Team - ''',
+            cc: '',
+            from: 'jaziri.aziz@yahoo.com',
+            replyTo: '',
+            subject: 'Build Finished - Success',
+            to: 'jaziri.aziz@yahoo.com'
+        }
+        failure {
+            mail bcc: '',
+            body: '''
+            'Dear Aziz,
+            we are sorry to inform you that your pipeline build failed.
+            Keep working!
+                -Jenkins Team - ''',
+            cc: '',
+            from: 'jaziri.aziz@yahoo.com', replyTo: '',
+            subject: 'Build Finished - Failure', to: 'jaziri.aziz@yahoo.com'
+        }
+        always {
+            emailext attachLog: true, body: '', subject: 'Build finished', from: 'jaziri.aziz@yahoo.com', to: 'jaziri.aziz@yahoo.com'
+            cleanWs()
+        }
+    }
 }
