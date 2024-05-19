@@ -16,5 +16,10 @@ pipeline {
                 sh 'mvn compile';
             }
         }
+        stage ('MOCKITO') {
+            steps {
+                sh 'mvn test'
+            }
+        }
     }
 }
