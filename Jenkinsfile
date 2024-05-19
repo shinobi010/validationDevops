@@ -10,13 +10,9 @@ pipeline {
                 url : 'https://github.com/shinobi010/validationDevops.git'
             }
         }
-        stage ('MVN CLEAN') {
+        stage ('BUILD') {
             steps {
                 sh 'mvn clean';
-            }
-        }
-        stage ('MVN COMPILE') {
-            steps {
                 sh 'mvn compile';
             }
         }
