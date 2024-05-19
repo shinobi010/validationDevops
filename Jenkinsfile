@@ -58,7 +58,7 @@ pipeline {
             Great work!
                 -Jenkins Team - ''',
             cc: '',
-            from: 'jaziri.aziz@yahoo.com',
+            from: 'hadhoumapfe@gmail.com',
             replyTo: '',
             subject: 'Build Finished - Success',
             to: 'jaziri.aziz@yahoo.com'
@@ -71,11 +71,11 @@ pipeline {
             Keep working!
                 -Jenkins Team - ''',
             cc: '',
-            from: 'jaziri.aziz@yahoo.com', replyTo: '',
+            from: '=hadhoumapfe@gmail.com', replyTo: '',
             subject: 'Build Finished - Failure', to: 'jaziri.aziz@yahoo.com'
         }
         always {
-            emailext attachLog: true, body: '', subject: 'Build finished', from: 'jaziri.aziz@yahoo.com', to: 'jaziri.aziz@yahoo.com'
+            emailext attachLog: true, body: '', subject: 'Build finished', from: 'hadhoumapfe@gmail.com', to: 'jaziri.aziz@yahoo.com'
             cleanWs()
         }
     }
