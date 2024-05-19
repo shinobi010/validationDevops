@@ -43,7 +43,7 @@ pipeline {
                sh 'docker push oumaimaadmin/achatimage:achatimage'
            }
         }
-        stage ('DOCKER COMPOSE') {
+        stage ('DOCKER-COMPOSE') {
             steps {
                sh 'docker compose up -d'
             }
