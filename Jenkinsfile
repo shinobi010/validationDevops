@@ -31,5 +31,10 @@ pipeline {
                 sh 'mvn deploy'
             }
         }
+        stage('DOCKER IMAGES') {
+            steps {
+                sh 'docker build -t timesheetimage:v${BUILD_NUMBER} -f Dockerfile ./'
+            }
+        }
     }
 }
