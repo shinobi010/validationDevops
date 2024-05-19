@@ -36,5 +36,12 @@ pipeline {
                 sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
+        stage ('DOCKER HUB') {
+           steps {
+               sh 'docker login -u oumaimaadmin -p docker123'
+               sh 'docker tag achatimage:v${BUILD_NUMBER} oumaimaadmin/achatimage:achatimage'
+               sh 'docker push oumaimaadmin/achatimage:achatimage'
+           }
+       }
     }
 }
