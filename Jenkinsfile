@@ -54,28 +54,4 @@ pipeline {
             }
         }
     }
-    post {
-        success {
-            mail bcc: '',
-            body: 'Pipeline build succeeded',
-            cc: '',
-            from: 'hadhouma2.pfe@yahoo.com',
-            replyTo: '',
-            subject: 'Build Finished - Success',
-            to: 'jaziri.aziz@yahoo.com'
-        }
-        failure {
-            mail bcc: '',
-            body: 'Pipeline build failed',
-            cc: '',
-            from: 'hadhouma2.pfe@yahoo.com', 
-            replyTo: '',
-            subject: 'Build Finished - Failure', 
-            to: 'jaziri.aziz@yahoo.com'
-        }
-        always {
-            emailext attachLog: true, body: '', subject: 'Build finished', from: 'hadhouma2.pfe@yahoo.com', to: 'jaziri.aziz@yahoo.com'
-            cleanWs()
-        }
-    }
 }
