@@ -4,12 +4,6 @@ pipeline {
         maven 'M2_HOME'
     }
     stages {
-        stage ('GIT') {
-            steps {
-                git branch: 'main',
-                url : 'https://github.com/shinobi010/validationDevops.git'
-            }
-        }
         stage ('MAVEN BUILD') {
             steps {
                 sh 'mvn clean';
