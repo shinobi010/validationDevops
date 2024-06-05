@@ -28,5 +28,22 @@ pipeline {
                 sh 'mvn deploy'
             }
         }
+        stage('DOCKER IMAGES') {
+            steps {
+                sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
+            }
+        }
+        stage ('DOCKER HUB') {
+           steps {
+               sh 'docker login -u hadhemidoghri -p B81b82b83'
+               sh 'docker tag achatimage:v${BUILD_NUMBER} hadhemidoghri/achatimage:achatimage'
+               sh 'docker push hadhemidoghri/achatimage:achatimage'
+           }
+        }
+        stage ('DOCKER-COMPOSE') {
+            steps {
+               sh 'docker compose up -d'
+            }
+        }
     }
 }
