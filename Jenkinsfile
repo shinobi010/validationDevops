@@ -23,5 +23,10 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage ('NEXUS') {
+            steps {
+                sh 'mvn deploy'
+            }
+        }
     }
 }
