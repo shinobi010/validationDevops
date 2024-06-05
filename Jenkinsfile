@@ -18,5 +18,10 @@ pipeline {
                 -Dsonar.login=20c82a045fc598455bfd04989f372b31513e5f8e"
             }
         }
+        stage ('MOCKITO') {
+            steps {
+                sh 'mvn test'
+            }
+        }
     }
 }
