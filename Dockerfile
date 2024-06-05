@@ -1,4 +1,4 @@
-FROM openjdk:17-slim
+FROM openjdk:8
 
 EXPOSE 8079
 
