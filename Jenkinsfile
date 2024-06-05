@@ -2,10 +2,7 @@ pipeline {
     agent any
 
     tools {
-
-                mavenTool 'Maven 3.6.3' // Spécifie la version de Maven à utiliser
-                jdk 'JDK8' // Spécifie la version de Java à utiliser
-
+        maven 'M2_HOME'
     }
 
 
