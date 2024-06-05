@@ -35,12 +35,10 @@ pipeline {
                                     }
                                 }
                                    stage('SonarQube Analysis') {
-                                                      steps {
-                                                          withCredentials([string(credentialsId: 'scanner', variable: 'SONAR_TOKEN')]) {
-                                                              sh 'mvn sonar:sonar -Dsonar.token=$SONAR_TOKEN'
-                                                          }
-                                                      }
-                                                  }
+                                           steps {
+                                               sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=root"
+                                           }
+                                       }
 
 
         }
