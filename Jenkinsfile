@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout Git repository') {
             steps {
                 echo 'Pulling'
-                git branch: 'ghassen', url: 'https://github.com/shinobi010/validationDevops.git'
+                git branch: 'ghassen', url:'https://github.com/shinobi010/validationDevops.git'
             }
         }
 
@@ -19,7 +19,7 @@ pipeline {
             steps {
                 sh 'mvn install'
             }
-        }
+        }}
 
 
 
