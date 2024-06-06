@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
-class DetailFournisseurServiceImplMock {
+class DetailFournisseurServiceImplMockTest {
 
     @Mock
     private DetailFournisseurRepository detailFournisseurRepository;

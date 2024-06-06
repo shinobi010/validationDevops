@@ -33,5 +33,16 @@ pipeline {
                 sh 'docker build --build-arg NEXUS_USERNAME=admin --build-arg NEXUS_PASSWORD=sonatype -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
+        stage ('DOCKER HUB') {
+            steps {
+                 sh 'docker login -u hadhemidoghri -p B81b82b83.'
+                 sh 'docker push hadhemidoghri/achatimage'
+            }
+         }
+         stage ('DOCKER-COMPOSE') {
+             steps {
+                sh 'docker compose up -d'
+             }
+         }
     }
 }
