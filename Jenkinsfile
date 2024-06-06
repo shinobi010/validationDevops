@@ -30,7 +30,7 @@ pipeline {
         }
         stage('DOCKER IMAGES') {
             steps {
-                sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
+                sh 'docker build --build-arg NEXUS_USERNAME=admin --build-arg NEXUS_PASSWORD=sonatype -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
     }
