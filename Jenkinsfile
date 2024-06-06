@@ -30,7 +30,7 @@ pipeline {
         }
         stage('DOCKER IMAGES') {
             steps {
-                sh 'docker build -t achat:1.0.0:v${BUILD_NUMBER} -f Dockerfile ./'
+                sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
     }
