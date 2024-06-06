@@ -35,7 +35,7 @@ pipeline {
         }
         stage ('DOCKER HUB') {
             steps {
-                 sh 'docker login -u hadhemidoghri -p B81b82b83.'
+                 sh 'docker login -u hadhemidoghri -p B81b82b83'
                  sh 'docker push hadhemidoghri/achatimage'
             }
          }
