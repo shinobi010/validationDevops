@@ -34,7 +34,7 @@ pipeline {
        }
         stage('deploy image'){
              steps {
-                    sh 'docker login -u eyamagdouli -p Maestro0101'
+                    sh 'docker login -u eyamagdouli -p maestro0101'
                     sh 'docker tag achatimage:v${BUILD_NUMBER} eyamagdouli/achatstockimage:achatstockimage'
                     sh 'docker push  eyamagdouli/achatstockimage:achatstockimage'
              }
