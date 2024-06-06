@@ -20,7 +20,7 @@ import java.util.List;
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(MockitoExtension.class)
-public class ProductServiceImplMock {
+public class ProductServiceImplTest {
 
     @Mock
     ProduitRepository productRepository;
