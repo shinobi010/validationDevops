@@ -27,12 +27,12 @@ pipeline {
                 sh 'mvn deploy'
             }
         }
-         stage('DOCKER IMAGES') {
+         stage('BUILD DOCKER IMAGES') {
             steps {
                 sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
-        stage('docker_deploy') {
+        stage('PUSH INTO DOCKER HUB') {
             steps {
                 sh 'docker login -u melekadmin -p Meleklas28@'
                 sh 'docker tag achatimage:v${BUILD_NUMBER} melekadmin/achatimage:achatimage'
