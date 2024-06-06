@@ -44,6 +44,21 @@ pipeline {
                 sh 'docker compose up -d'
             }
             }
+            stage('Prometheus') {
+                        steps {
+                            script {
+                                sh 'curl -X POST -d "status=success" http://localhost:9090/metrics/job/prometheus_stage'
+                            }
+                        }
+                    }
+                    stage('Grafana') {
+                        steps {
+                            script {
+                                sh 'curl -X POST -d "prometheus_url=http://localhost:9090/" -d "grafana_url=http://localhost:3000/" http://localhost:8080/api/datasources'
+
+                                    }
+                             }
+                        }
 
     }
 
