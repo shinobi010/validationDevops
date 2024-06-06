@@ -30,18 +30,7 @@ pipeline {
         }
         stage('DOCKER IMAGES') {
             steps {
-                 sh 'docker build -t hadhemidoghri/achat:1.0.0 .'
-            }
-        }
-        stage ('DOCKER HUB') {
-           steps {
-                sh 'docker login -u hadhemidoghri -p B81b82b83.'
-                sh 'docker push hadhemidoghri/achat:1.0.0'
-           }
-        }
-        stage ('DOCKER-COMPOSE') {
-            steps {
-               sh 'docker compose up -d'
+                sh 'docker build -t achat:1.0.0:v${BUILD_NUMBER} -f Dockerfile ./'
             }
         }
     }

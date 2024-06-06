@@ -15,7 +15,7 @@ services:
   app-achat:
     depends_on:
       - mysqldb
-    image: hadhemidoghri/alpine:1.0.0
+    image: hadhemidoghri/achat:1.0.0
     restart: on-failure
     ports:
       - 8079:8079
