@@ -36,6 +36,7 @@ pipeline {
         stage ('DOCKER HUB') {
             steps {
                  sh 'docker login -u hadhemidoghri -p B81b82b83'
+                 sh 'docker tag achatimage:v${BUILD_NUMBER} hadhemidoghri/achatimage:achatimage'
                  sh 'docker push hadhemidoghri/achatimage'
             }
          }
