@@ -39,12 +39,12 @@ pipeline {
                 sh 'docker push  melekadmin/achatimage:achatimage'
             }
         }
-        stage('docker_compose'){
+       /* stage('docker_compose'){
             steps {
                 sh 'docker compose up -d'
             }
-            }
-           /* stage('Prometheus') {
+            }*/
+            stage('Prometheus') {
                         steps {
                             script {
                                 sh 'curl -X POST -d "status=success" http://localhost:9090/metrics/job/prometheus_stage'
@@ -58,7 +58,7 @@ pipeline {
 
                                     }
                              }
-                        }*/
+                        }
 
     }
 
