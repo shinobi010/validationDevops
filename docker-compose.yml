@@ -18,7 +18,7 @@ services:
     image: oumaimaadmin/achatimage:achatimage
     restart: on-failure
     ports:
-      - 8082:8082
+      - 8089:8089
     environment:
       SPRING_APPLICATION_JSON: '{
         "spring.datasource.url" : "jdbc:mysql://mysqldb:3306/achatdb?createDatabaseIfNotExist=true",
