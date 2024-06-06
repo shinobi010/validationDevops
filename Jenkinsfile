@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+            RECIPIENTS = 'marwensnoussi@gmail.com'
+        }
+
     stages {
         stage('mvn_clean') {
             steps {
