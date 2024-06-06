@@ -16,77 +16,76 @@ import tn.esprit.rh.achat.entities.CategorieProduit;
 import tn.esprit.rh.achat.entities.DetailFacture;
 import tn.esprit.rh.achat.entities.Produit;
 import tn.esprit.rh.achat.entities.Stock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+import java.util.Date;
+import java.util.Optional;
+
+import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import tn.esprit.rh.achat.repositories.ProduitRepository;
+import tn.esprit.rh.achat.repositories.StockRepository;
+import tn.esprit.rh.achat.services.ProduitServiceImpl;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProduitServiceImplTest {
+	@Mock
+	private ProduitRepository produitRepository;
 
+	@Mock
+	private StockRepository stockRepository;
+
+	@InjectMocks
+	private ProduitServiceImpl produitService;
 	private Produit produit;
 
-	@Before
-	public void setUp() {
-		produit = new Produit();
-	}
+
+
 
 	@Test
-	public void testGetIdProduit() {
-		Long idProduit = 1L;
-		produit.setIdProduit(idProduit);
-		assertEquals(idProduit, produit.getIdProduit());
+	public void testRetrieveProduit() {
+		Produit produit = new Produit();
+		produit.setIdProduit(1L);
+		produit.setLibelleProduit("Test Produit");
+		when(produitRepository.findById(1L)).thenReturn(Optional.of(produit));
+		Produit retrievedProduit = produitService.retrieveProduit(1L);
+		assertNotNull(retrievedProduit);
+		assertEquals("Test Produit", retrievedProduit.getLibelleProduit());
 	}
-
 	@Test
-	public void testGetCodeProduit() {
-		String codeProduit = "12345";
-		produit.setCodeProduit(codeProduit);
-		assertEquals(codeProduit, produit.getCodeProduit());
-	}
+	public void testAssignProduitToStock() {
+		Produit produit = new Produit();
+		produit.setIdProduit(1L);
 
-	@Test
-	public void testGetLibelleProduit() {
-		String libelleProduit = "Libelle produit";
-		produit.setLibelleProduit(libelleProduit);
-		assertEquals(libelleProduit, produit.getLibelleProduit());
-	}
-
-	@Test
-	public void testGetPrix() {
-		float prix = 10.5f;
-		produit.setPrix(prix);
-		assertEquals(prix, produit.getPrix(), 0);
-	}
-
-	@Test
-	public void testGetDateCreation() {
-		Date dateCreation = new Date();
-		produit.setDateCreation(dateCreation);
-		assertEquals(dateCreation, produit.getDateCreation());
-	}
-
-	@Test
-	public void testGetDateDerniereModification() {
-		Date dateDerniereModification = new Date();
-		produit.setDateDerniereModification(dateDerniereModification);
-		assertEquals(dateDerniereModification, produit.getDateDerniereModification());
-	}
-
-	@Test
-	public void testGetStock() {
 		Stock stock = new Stock();
-		produit.setStock(stock);
-		assertEquals(stock, produit.getStock());
+		stock.setIdStock(1L);
+
+		when(produitRepository.findById(1L)).thenReturn(Optional.of(produit));
+		when(stockRepository.findById(1L)).thenReturn(Optional.of(stock));
+
+		produitService.assignProduitToStock(1L, 1L);
+
+		assertNotNull(produit.getStock());
+		assertEquals(Long.valueOf(1L), produit.getStock().getIdStock());
+	}
+	@Test
+	public void testAddProduit() {
+		Produit produit = new Produit();
+		produit.setLibelleProduit("Nouveau Produit");
+		produit.setDateCreation(new Date());
+		when(produitRepository.save(any(Produit.class))).thenReturn(produit);
+		Produit savedProduit = produitService.addProduit(produit);
+		assertNotNull(savedProduit);
+		assertEquals("Nouveau Produit", savedProduit.getLibelleProduit());
+		assertNotNull(savedProduit.getDateCreation());
 	}
 
-	@Test
-	public void testGetDetailFacture() {
-		Set<DetailFacture> detailFacture = new HashSet<>();
-		produit.setDetailFacture(detailFacture);
-		assertEquals(detailFacture, produit.getDetailFacture());
-	}
-
-	@Test
-	public void testGetCategorieProduit() {
-		CategorieProduit categorieProduit = new CategorieProduit();
-		produit.setCategorieProduit(categorieProduit);
-		assertEquals(categorieProduit, produit.getCategorieProduit());
-	}
 }
