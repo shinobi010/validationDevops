@@ -45,9 +45,21 @@ pipeline {
                                                                           sh 'mvn deploy'
                                                                      }
                                                                  }
+                                                                  stage('DOCKER IMAGES') {
+                                                                             steps {
+                                                                                 sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
+                                                                             }
+                                                                         }
 
 
-        }
+        } stage('Build Docker Image') {
+                     steps {
+                         script {
+                             // Étape de construction de l'image Docker
+                             sh 'docker build -t ghassenbenamor/tpachatproject:1.0 .'
+                         }
+                     }
+                 }
 
 
 
