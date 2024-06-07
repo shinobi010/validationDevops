@@ -12,7 +12,7 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-       stage('SonarQube Analysis') {
+        stage('SonarQube Analysis') {
             steps {
                 sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
             }
@@ -31,54 +31,18 @@ pipeline {
             steps {
                 sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
-            post {
-                success {
-                    emailext subject: 'Build Docker Images réussi',
-                              body: 'Les images Docker ont été construites avec succès.',
-                              to: 'melekghrab50@gmail.com'
-                }
-                failure {
-                    emailext subject: 'Erreur lors de la construction des images Docker',
-                              body: 'La construction des images Docker a échoué. Veuillez vérifier le log.',
-                              to: 'melekghrab50@gmail.com'
-                }
-            }
         }
         stage('docker_deploy') {
             steps {
                 sh 'docker login -u melekadmin -p Meleklas28@'
                 sh 'docker tag achatimage:v${BUILD_NUMBER} melekadmin/achatimage:achatimage'
-                sh 'docker push  melekadmin/achatimage:achatimage'
-            }
-            post {
-                success {
-                    emailext subject: 'Déploiement Docker réussi',
-                              body: 'Les images Docker ont été déployées avec succès.',
-                              to: 'melekghrab50@gmail.com'
-                }
-                failure {
-                    emailext subject: 'Erreur lors du déploiement Docker',
-                              body: 'Le déploiement des images Docker a échoué. Veuillez vérifier le log.',
-                              to: 'melekghrab50@gmail.com'
-                }
+                sh 'docker push melekadmin/achatimage:achatimage'
             }
         }
-        stage('docker_compose'){
+        stage('docker_compose') {
             steps {
                 script {
                     sh '/usr/local/bin/docker-compose up -d'
-                }
-            }
-            post {
-                success {
-                    emailext subject: 'docker-compose réussi',
-                              body: 'docker-compose a été exécuté avec succès.',
-                              to: 'melekghrab50@gmail.com'
-                }
-                failure {
-                    emailext subject: 'Erreur lors de l\'exécution de docker-compose',
-                              body: 'L\'exécution de docker-compose a échoué. Veuillez vérifier le log.',
-                              to: 'melekghrab50@gmail.com'
                 }
             }
         }
@@ -88,18 +52,6 @@ pipeline {
                     sh 'curl -X POST -d "status=success" http://localhost:9090/metrics/job/prometheus_stage'
                 }
             }
-            post {
-                success {
-                    emailext subject: 'Prometheus',
-                              body: 'Les métriques ont été envoyées avec succès à Prometheus.',
-                              to: 'melekghrab50@gmail.com'
-                }
-                failure {
-                    emailext subject: 'Erreur lors de l\'envoi des métriques à Prometheus',
-                              body: 'L\'envoi des métriques à Prometheus a échoué. Veuillez vérifier le log.',
-                              to: 'melekghrab50@gmail.com'
-                }
-            }
         }
         stage('Grafana') {
             steps {
@@ -107,17 +59,31 @@ pipeline {
                     sh 'curl -X POST -d "prometheus_url=http://localhost:9090/" -d "grafana_url=http://localhost:3000/" http://localhost:8080/api/datasources'
                 }
             }
-            post {
-                success {
-                    emailext subject: 'Grafana',
-                              body: 'Les données ont été envoyées avec succès à Grafana.',
-                              to: 'melekghrab50@gmail.com'
-                }
-                failure {
-                    emailext subject: 'Erreur lors de l\'envoi des données à Grafana',
-                              body: 'L\'envoi des données à Grafana a échoué. Veuillez vérifier le log.',
-                              to: 'melekghrab50@gmail.com'
-                }
+        }
+    }
+
+    post {
+        always {
+            script {
+                def currentResult = currentBuild.currentResult
+                def buildStatus = currentResult == 'SUCCESS' ? 'Build Succeeded' : 'Build Failed'
+                def buildUrl = env.BUILD_URL
+
+                emailext(
+                    subject: "${buildStatus}: Jenkins Pipeline ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """
+                        <p>The Jenkins Pipeline <strong>${env.JOB_NAME}</strong> has finished with status: <strong>${buildStatus}</strong>.</p>
+                        <p>See the build details at: <a href="${buildUrl}">${buildUrl}</a></p>
+                        <p>Pipeline Summary:</p>
+                        <ul>
+                            <li>Build Number: ${env.BUILD_NUMBER}</li>
+                            <li>Build URL: <a href="${buildUrl}">${buildUrl}</a></li>
+                            <li>Build Status: ${buildStatus}</li>
+                        </ul>
+                    """,
+                    mimeType: 'text/html',
+                    to: 'melekghrab50@gmail.com'
+                )
             }
         }
     }
