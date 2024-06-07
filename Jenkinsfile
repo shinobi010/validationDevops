@@ -50,7 +50,7 @@ pipeline {
                                                                                       steps {
                                                                                           script {
                                                                                               // Utilisation de sudo pour exécuter Docker
-                                                                                              sh 'sudo docker build -t ghassenbenamor/tpachatproject:1.0 .'
+                                                                                             sh 'sudo docker build -t ghassenbenamor/tpachatproject:1.0 .'
                                                                                           }
                                                                                       }
 
