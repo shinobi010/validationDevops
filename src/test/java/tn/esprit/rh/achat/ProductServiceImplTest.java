@@ -68,6 +68,6 @@ class ProductServiceImplTest {
         Produit updatedProduct = productService.updateProduit(product1);
         Assertions.assertEquals(product.getIdProduit(), updatedProduct.getIdProduit(), "The updated product should have the same identifier as the old one");
         Assertions.assertNotNull(updatedProduct, "The updated product should not be null.");
-    }
+    } 
 
 }
