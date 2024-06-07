@@ -16,14 +16,14 @@ pipeline {
                 sh 'mvn compile';
             }
         }
-        stage ('SONARQUBE') {
-            steps {
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar';
-            }
-        }
         stage ('MOCKITO') {
             steps {
                 sh 'mvn test'
+            }
+        }
+        stage ('SONARQUBE') {
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar';
             }
         }
         stage ('NEXUS') {
