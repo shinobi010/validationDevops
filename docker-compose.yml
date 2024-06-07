@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mysqldb:
     image: mysql:5.7
-    restart: unless-stopped
+    restart: no
     environment:
       - MYSQL_ROOT_PASSWORD=
       - MYSQL_DATABASE=achatdb
@@ -16,7 +16,7 @@ services:
     depends_on:
       - mysqldb
     image: hadhemidoghri/achatimage
-    restart: on-failure
+    restart: no
     ports:
       - 8079:8079
     environment:
