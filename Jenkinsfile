@@ -3,6 +3,7 @@ pipeline {
     triggers {
         githubPush()
       }
+
     stages {
         stage('mvn_clean') {
             steps {
