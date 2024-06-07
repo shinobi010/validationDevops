@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout Git repository') {
             steps {
-                echo 'Pulling'
+                    echo 'Pulling'
                 git branch: 'ghassen', url:'https://github.com/shinobi010/validationDevops.git'
             }
         }
@@ -45,22 +45,19 @@ pipeline {
                                                                           sh 'mvn deploy'
                                                                      }
                                                                  }
-                                                                  stage('DOCKER IMAGES') {
-                                                                             steps {
-                                                                                 sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
-                                                                             }
-                                                                         }
-                                                                             stage('Build Docker Image') {
-                                                                                     steps {
-                                                                                         script {
-                                                                                             // Étape de construction de l'image Docker
-                                                                                             sh 'docker build -t ghassenbenamor/tpachatproject:1.0 .'
-                                                                                         }
-                                                                                     }
-                                                                                 }
+
+                                                                            stage('Build Docker Image') {
+                                                                                      steps {
+                                                                                          script {
+                                                                                              // Utilisation de sudo pour exécuter Docker
+                                                                                              sh 'sudo docker build -t ghassenbenamor/tpachatproject:1.0 .'
+                                                                                          }
+                                                                                      }
+
+                                                                                  }
 
 
-
+Y
 
         }
 
