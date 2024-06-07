@@ -11,6 +11,8 @@ import tn.esprit.rh.achat.entities.Produit;
 import tn.esprit.rh.achat.repositories.ProduitRepository;
 import tn.esprit.rh.achat.services.ProduitServiceImpl;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,13 +28,13 @@ class ProductServiceImplTest {
 
     List<Produit> products = new ArrayList<Produit>() {
         {
-            add(new Produit());
-            add(new Produit());
-            add(new Produit());
+            add(new Produit(1L, "produit-001", "table", 150, Date.valueOf(LocalDate.now()), null, null, null, null));
+            add(new Produit(2L, "produit-002", "chaise", 75, Date.valueOf(LocalDate.now()), null, null, null, null));
+            add(new Produit(3L, "produit-003", "tableau", 120, Date.valueOf(LocalDate.now()), null, null, null, null));
         }
     };
-    Produit product = new Produit(1L);
-    Produit product1 = new Produit(1L); //null;
+    Produit product = new Produit(4L, "produit-004", "lit", 350, Date.valueOf(LocalDate.now()), null, null, null, null);
+    Produit product1 = new Produit(4L, "produit-004", "lit", 350, Date.valueOf(LocalDate.now()), null, null, null, null);
 
 
     @Test
@@ -55,7 +57,7 @@ class ProductServiceImplTest {
     }
     @Test
     void testRemoveProduct() {
-        Long productId = 1L;
+        Long productId = 4L;
         Mockito.doNothing().when(productRepository).deleteById(Mockito.anyLong());
         productService.deleteProduit(productId);
         Mockito.verify(productRepository, Mockito.times(1)).deleteById(productId);
