@@ -1,5 +1,4 @@
 version: '3.8' 
-
 services:
   mysqldb:
     image: mysql:5.7
@@ -29,6 +28,13 @@ services:
       }'
     stdin_open: true
     tty: true
-
+  prometheus:
+    image: prometheus/prometheus
+    ports:
+      - "9090:9090"
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
 volumes:
   db:
