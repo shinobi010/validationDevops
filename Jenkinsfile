@@ -45,14 +45,12 @@ pipeline {
         }
         stage ('DOCKER-COMPOSE') {
             steps {
-               sh 'docker compose up -d mysqldb'
-               sh 'docker compose up -d app-achat-backend'
+               sh 'docker compose up -d'
             }
         }
-        stage ('PROMETHEUS & GRAFANA') {
+        stage ('GRAFANA') {
             steps {
-                sh 'docker compose up -d prometheus'
-                sh 'docker compose up -d grafana'
+               echo "GRAFANA"
             }
         }
     }
