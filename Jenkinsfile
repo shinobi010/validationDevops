@@ -5,6 +5,11 @@ pipeline {
       }
 
     stages {
+    stage('triggerBuild'){
+        steps {
+            checkout scmGit(branches: [[name: '*/operatorManagement-marwenSnoussi']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/shinobi010/validationDevops.git']])
+        }
+    }
         stage('mvn_clean') {
             steps {
                 sh 'mvn clean'
