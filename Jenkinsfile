@@ -60,7 +60,8 @@ pipeline {
                                                                                              stage('Login to Docker Hub') {
                                                                                                       steps {
                                                                                                              sh 'docker login -u ghassenbax -p adminadmin'
-                                                                                                              sh 'docker push  ghassenbax/achat:achat'
+
+                                                                                                              sh 'docker push  ghassenbax/achat:1.0'
                                                                                                       }
                                                                                                   }
 
