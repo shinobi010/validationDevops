@@ -50,11 +50,18 @@ pipeline {
                                                                                       steps {
                                                                                           script {
                                                                                               // Utilisation de sudo pour exécuter Docker
-                                                                                             sh 'sudo docker build -t ghassenbenamor/achat:1.0 .'
+                                                                                             sh 'sudo docker build -t ghassenbax/achat:1.0 .'
                                                                                           }
                                                                                       }
 
                                                                                   }
+
+
+                                                                                             stage('Login to Docker Hub') {
+                                                                                                      steps {
+                                                                                                             sh 'docker login -u ghassenbax -p adminadmin'
+                                                                                                      }
+                                                                                                  }
 
 
 
