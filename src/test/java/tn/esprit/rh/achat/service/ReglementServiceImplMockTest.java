@@ -18,7 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@extendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class ReglementServiceImplMock {
 
     @InjectMocks
