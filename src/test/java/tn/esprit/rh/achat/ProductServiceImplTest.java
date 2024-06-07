@@ -49,7 +49,7 @@ class ProductServiceImplTest {
     }
     @Test
     void testRetrieveProduct () {
-        Mockito.when(productRepository.findById((long) Mockito.anyLong())).thenReturn(Optional.of(product));
+        Mockito.when(productRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(product));
         Produit product1 = productService.retrieveProduit(5L);
         Assertions.assertNotNull(product1, "The retrieved product should be null.");
     }
