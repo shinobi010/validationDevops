@@ -48,9 +48,10 @@ pipeline {
                sh 'docker compose up -d'
             }
         }
-        stage ('GRAFANA') {
+        stage ('PROMETHEUS & GRAFANA') {
             steps {
-               echo "GRAFANA"
+                sh 'docker stop d0430580f6b3 4cbb8ad69013' 
+                sh 'docker start d0430580f6b3 d0430580f6b3'               
             }
         }
     }
