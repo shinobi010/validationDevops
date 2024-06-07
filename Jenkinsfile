@@ -51,5 +51,12 @@ pipeline {
             }
         }
 
-
+        stage('Build Docker Image with Version') {
+            steps {
+                script {
+                    sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
+                }
+            }
+        }
+    }
 }
