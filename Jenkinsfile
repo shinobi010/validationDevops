@@ -45,7 +45,8 @@ pipeline {
         }
         stage ('DOCKER-COMPOSE') {
             steps {
-               sh 'docker compose up -d'
+               sh 'docker compose up -d mysqldb'
+               sh 'docker compose up -d app-achat-backend'
             }
         }
         stage ('PROMETHEUS & GRAFANA') {
