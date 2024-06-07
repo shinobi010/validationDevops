@@ -27,42 +27,98 @@ pipeline {
                 sh 'mvn deploy'
             }
         }
-         stage('BUILD DOCKER IMAGES') {
+        stage('DOCKER IMAGES') {
             steps {
                 sh 'docker build -t achatimage:v${BUILD_NUMBER} -f Dockerfile ./'
             }
+            post {
+                success {
+                    emailext subject: 'Build Docker Images réussi',
+                              body: 'Les images Docker ont été construites avec succès.',
+                              to: 'melekghrab50@gmail.com'
+                }
+                failure {
+                    emailext subject: 'Erreur lors de la construction des images Docker',
+                              body: 'La construction des images Docker a échoué. Veuillez vérifier le log.',
+                              to: 'melekghrab50@gmail.com'
+                }
+            }
         }
-        stage('PUSH INTO DOCKER HUB') {
+        stage('docker_deploy') {
             steps {
                 sh 'docker login -u melekadmin -p Meleklas28@'
                 sh 'docker tag achatimage:v${BUILD_NUMBER} melekadmin/achatimage:achatimage'
                 sh 'docker push  melekadmin/achatimage:achatimage'
             }
+            post {
+                success {
+                    emailext subject: 'Déploiement Docker réussi',
+                              body: 'Les images Docker ont été déployées avec succès.',
+                              to: 'melekghrab50@gmail.com'
+                }
+                failure {
+                    emailext subject: 'Erreur lors du déploiement Docker',
+                              body: 'Le déploiement des images Docker a échoué. Veuillez vérifier le log.',
+                              to: 'melekghrab50@gmail.com'
+                }
+            }
         }
         stage('docker_compose'){
             steps {
-                script{
-                  sh '/usr/local/bin/docker-compose up -d'
-
+                script {
+                    sh '/usr/local/bin/docker-compose up -d'
+                }
             }
+            post {
+                success {
+                    emailext subject: 'docker-compose réussi',
+                              body: 'docker-compose a été exécuté avec succès.',
+                              to: 'melekghrab50@gmail.com'
+                }
+                failure {
+                    emailext subject: 'Erreur lors de l\'exécution de docker-compose',
+                              body: 'L\'exécution de docker-compose a échoué. Veuillez vérifier le log.',
+                              to: 'melekghrab50@gmail.com'
+                }
             }
+        }
+        stage('Prometheus') {
+            steps {
+                script {
+                    sh 'curl -X POST -d "status=success" http://localhost:9090/metrics/job/prometheus_stage'
+                }
             }
-            stage('Prometheus') {
-                        steps {
-                            script {
-                                sh 'curl -X POST -d "status=success" http://localhost:9090/metrics/job/prometheus_stage'
-                            }
-                        }
-                    }
-                    stage('Grafana') {
-                        steps {
-                            script {
-                                sh 'curl -X POST -d "prometheus_url=http://localhost:9090/" -d "grafana_url=http://localhost:3000/" http://localhost:8080/api/datasources'
-
-                                    }
-                             }
-                        }
-
+            post {
+                success {
+                    emailext subject: 'Prometheus',
+                              body: 'Les métriques ont été envoyées avec succès à Prometheus.',
+                              to: 'melekghrab50@gmail.com'
+                }
+                failure {
+                    emailext subject: 'Erreur lors de l\'envoi des métriques à Prometheus',
+                              body: 'L\'envoi des métriques à Prometheus a échoué. Veuillez vérifier le log.',
+                              to: 'melekghrab50@gmail.com'
+                }
+            }
+        }
+        stage('Grafana') {
+            steps {
+                script {
+                    sh 'curl -X POST -d "prometheus_url=http://localhost:9090/" -d "grafana_url=http://localhost:3000/" http://localhost:8080/api/datasources'
+                }
+            }
+            post {
+                success {
+                    emailext subject: 'Grafana',
+                              body: 'Les données ont été envoyées avec succès à Grafana.',
+                              to: 'melekghrab50@gmail.com'
+                }
+                failure {
+                    emailext subject: 'Erreur lors de l\'envoi des données à Grafana',
+                              body: 'L\'envoi des données à Grafana a échoué. Veuillez vérifier le log.',
+                              to: 'melekghrab50@gmail.com'
+                }
+            }
+        }
     }
-
 }
