@@ -48,9 +48,10 @@ pipeline {
                sh 'docker compose up -d'
             }
         }
-        stage ('GRAFANA') {
+        stage ('PROMETHEUS & GRAFANA') {
             steps {
-               echo 'GRAFANA'
+                sh 'docker compose up -d prometheus'
+                sh 'docker compose up -d grafana'
             }
         }
     }
