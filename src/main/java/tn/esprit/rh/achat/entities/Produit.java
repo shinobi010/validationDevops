@@ -49,7 +49,8 @@ public class Produit implements Serializable {
 	private CategorieProduit categorieProduit;
 	
 
-
-	
+	public Produit(Long id) {
+		this.idProduit = id;
+	}
 
 }
