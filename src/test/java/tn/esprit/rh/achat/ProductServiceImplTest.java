@@ -1,7 +1,6 @@
 package tn.esprit.rh.achat;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class ProductServiceImplTest {
+class ProductServiceImplTest {
 
     @Mock
     ProduitRepository productRepository;
@@ -33,7 +32,7 @@ public class ProductServiceImplTest {
     };
 
     @Test
-    public void testRetrieveAll() {
+    void testRetrieveAll() {
         Mockito.when(productRepository.findAll()).thenReturn(products);
         List<Produit> retrievedProducts = productService.retrieveAllProduits();
         Assertions.assertEquals(3, retrievedProducts.size(), "The expected size is : " + products.size());
