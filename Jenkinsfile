@@ -64,6 +64,18 @@ pipeline {
                                                                                                               sh 'docker push  ghassenbax/achat:1.0'
                                                                                                       }
                                                                                                   }
+                                                                                                      stage('Deploy with Docker Compose') {
+                                                                                                              steps {
+                                                                                                                  script {
+                                                                                                                      // Assurez-vous que vous êtes dans le répertoire contenant le fichier docker-compose.yml
+
+                                                                                                                          // Exécutez docker-compose up -d
+                                                                                                                          sh 'docker-compose up -d'
+
+                                                                                                                  }
+                                                                                                              }
+                                                                                                          }
+                                                                                                      }
 
 
 
