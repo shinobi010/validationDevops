@@ -4,7 +4,6 @@ pipeline {
         maven 'M2_HOME'
     }
     stages {
-        /*
         stage ('GIT') {
             steps {
                 git branch: 'productManagement-oumaimaChebbi',
@@ -48,7 +47,7 @@ pipeline {
             steps {
                sh 'docker compose up -d'
             }
-        }*/
+        }
         stage ('PROMETHEUS & GRAFANA') {
             steps {
                 sh 'docker stop d0430580f6b3 4cbb8ad69013' 
