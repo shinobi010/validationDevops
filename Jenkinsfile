@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-            RECIPIENTS = 'marwensnoussi@gmail.com'
-        }
-
     stages {
         stage('mvn_clean') {
             steps {
@@ -33,12 +29,13 @@ pipeline {
         }
 
     }
+
      post {
             success {
                 emailext(
                     subject: "Jenkins Pipeline: ${currentBuild.fullDisplayName} Succeeded",
                     body: "Good news! The Jenkins pipeline ${env.JOB_NAME} build number ${env.BUILD_NUMBER} succeeded.",
-                    to: "${env.RECIPIENTS}"
+                    to: "marwensnoussi@gmail.com"
                 )
             }
 
@@ -46,7 +43,7 @@ pipeline {
                 emailext(
                     subject: "Jenkins Pipeline: ${currentBuild.fullDisplayName} Failed",
                     body: "Unfortunately, the Jenkins pipeline ${env.JOB_NAME} build number ${env.BUILD_NUMBER} failed. Please check the logs for more details.",
-                    to: "${env.RECIPIENTS}"
+                    to: "marwensnoussi@gmail.com"
                 )
             }
 
@@ -54,7 +51,7 @@ pipeline {
                 emailext(
                     subject: "Jenkins Pipeline: ${currentBuild.fullDisplayName} Finished",
                     body: "The Jenkins pipeline ${env.JOB_NAME} build number ${env.BUILD_NUMBER} has finished.",
-                    to: "${env.RECIPIENTS}"
+                    to: "marwensnoussi@gmail.com"
                 )
             }
         }
