@@ -45,5 +45,17 @@ pipeline {
                 sh 'docker compose up -d'
              }
          }
+        stage ('GRAPHANA') {
+             steps {
+                sh 'stop 5c1222844aee'
+                sh 'start 5c1222844aee'
+             }
+         }
+        stage ('PROMRTHEUS') {
+             steps {
+                sh 'stop 052ca32b5fd4'
+                sh 'start 052ca32b5fd4'
+             }
+         }
     }
 }
