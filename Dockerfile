@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk-alpine
 
-EXPOSE 8079
+EXPOSE 8089
 
 ARG admin
 ARG sonatype
