@@ -46,4 +46,30 @@ pipeline {
               }
         }
     }
+
+     post {
+            success {
+                emailext(
+                    subject: "Jenkins Pipeline: ${currentBuild.fullDisplayName} Succeeded",
+                    body: "Good news! The Jenkins pipeline ${env.JOB_NAME} build number ${env.BUILD_NUMBER} succeeded.",
+                    to: "marwensnoussi@gmail.com"
+                )
+            }
+
+            failure {
+                emailext(
+                    subject: "Jenkins Pipeline: ${currentBuild.fullDisplayName} Failed",
+                    body: "Unfortunately, the Jenkins pipeline ${env.JOB_NAME} build number ${env.BUILD_NUMBER} failed. Please check the logs for more details.",
+                    to: "marwensnoussi@gmail.com"
+                )
+            }
+
+            always {
+                emailext(
+                    subject: "Jenkins Pipeline: ${currentBuild.fullDisplayName} Finished",
+                    body: "The Jenkins pipeline ${env.JOB_NAME} build number ${env.BUILD_NUMBER} has finished.",
+                    to: "marwensnoussi@gmail.com"
+                )
+            }
+        }
 }
