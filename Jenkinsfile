@@ -70,7 +70,7 @@ pipeline {
                                                                                                                       // Assurez-vous que vous êtes dans le répertoire contenant le fichier docker-compose.yml
 
                                                                                                                           // Exécutez docker-compose up -d
-                                                                                                                          sh 'docker compose up -d'
+                                                                                                                          sh ' sudo docker-compose up -d'
 
                                                                                                                   }
                                                                                                               }
