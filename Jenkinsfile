@@ -8,7 +8,7 @@ pipeline {
 
     environment {
 
-        DOCKER_COMPOSE_VERSION = '1.29.2' // Version de Docker Compose à utiliser
+        DOCKER_COMPOSE_VERSION = '1.29.2'
     }
 
 
@@ -33,12 +33,7 @@ pipeline {
                 }
 
 
-                stage('Rapport JaCoCo') {
 
-                                   steps {
-                                        sh 'mvn jacoco:report'
-                                    }
-                                }
 
                                    stage('SonarQube Analysis') {
                                            steps {
@@ -54,7 +49,6 @@ pipeline {
                                                                             stage('Build Docker Image') {
                                                                                       steps {
                                                                                           script {
-                                                                                              // Utilisation de sudo pour exécuter Docker
                                                                                              sh 'sudo docker build -t ghassenbax/achat:1.0 .'
                                                                                           }
                                                                                       }
@@ -72,9 +66,7 @@ pipeline {
                                                                                                       stage('Deploy with Docker Compose') {
                                                                                                               steps {
                                                                                                                   script {
-                                                                                                                      // Assurez-vous que vous êtes dans le répertoire contenant le fichier docker-compose.yml
 
-                                                                                                                          // Exécutez docker-compose up -d
                                                                                                                           sh 'docker compose up -d'
 
                                                                                                                   }
