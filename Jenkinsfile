@@ -6,6 +6,11 @@ pipeline {
     }
 
 
+    environment {
+
+        DOCKER_COMPOSE_VERSION = '1.29.2' // Version de Docker Compose à utiliser
+    }
+
 
     stages {
         stage('Checkout Git repository') {
@@ -70,7 +75,7 @@ pipeline {
                                                                                                                       // Assurez-vous que vous êtes dans le répertoire contenant le fichier docker-compose.yml
 
                                                                                                                           // Exécutez docker-compose up -d
-                                                                                                                          sh 'docker-compose up -d'
+                                                                                                                          sh 'docker compose up -d'
 
                                                                                                                   }
                                                                                                               }
